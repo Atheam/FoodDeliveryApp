@@ -19,5 +19,8 @@ from Users import views as Users_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('registerCustomer/', Users_views.registerCustomer)
+    path('registerCustomer/', Users_views.registerCustomer),
+    path('registerRestaurant/', Users_views.registerRestaurant),
+    path('registerDelivery/', Users_views.registerDelivery),
+    path('registrationSuccessful/', Users_views.registrationSuccessful, name='registration-successful')
 ]
