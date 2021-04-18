@@ -32,6 +32,7 @@ urlpatterns = [
     path('fillCustomer/', Users_views.fillCustomer, name='fillCustomer'),
     path('loginRedirect/', Users_views.loginRedirect, name='loginRedirect'),
     path('fill/', Users_views.fillData, name='fill'),
-    # path('fillRestaurant/', Users_views.fillRestaurant, name='fillRestaurant'),
-    # path('fillDelivery/', Users_views.fillDelivery, name='fillDelivery')
+    path('fillRestaurant/', Users_views.fillRestaurant, name='fillRestaurant'),
+    path('fillDelivery/', Users_views.fillDelivery, name='fillDelivery'),
+    path('profile/',Home_views.profile,name='profile')
     ]

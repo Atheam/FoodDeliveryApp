@@ -23,10 +23,20 @@ class Restaurants(models.Model):
     address = models.ForeignKey(Address, on_delete=models.CASCADE)
     phone_number = models.CharField(max_length=9)
     NIP = models.CharField(max_length=12)
+    
+
+class PendingRestaurants(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    restaurant_name = models.CharField(max_length=50)
+    address = models.ForeignKey(Address, on_delete=models.CASCADE)
+    phone_number = models.CharField(max_length=9)
+    NIP = models.CharField(max_length=12)
 
 
 class Deliverers(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
     phone_number = models.CharField(max_length=9)
 
 

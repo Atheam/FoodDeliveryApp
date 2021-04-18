@@ -21,5 +21,20 @@ class fillCustomerForm(forms.Form):
     phone_number = forms.CharField()
 
 
+class fillDeliveryForm(forms.Form):
+    first_name = forms.CharField()
+    last_name = forms.CharField()
+    phone_number = forms.CharField()
+
+class fillRestaurantForm(forms.Form):
+    restaurant_name = forms.CharField()
+    city = forms.CharField()
+    street = forms.CharField()
+    building_number = forms.IntegerField()
+    flat_number = forms.IntegerField()
+    phone_number = forms.CharField()
+    NIP = forms.CharField()
+
+
 
 
