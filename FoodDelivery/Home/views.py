@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from Users.models import Customers, Restaurants, Deliverers
 
-# Create your views here.
+
+def home(request):
+    return render(request, 'Home/home.html')
+
+

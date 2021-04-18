@@ -12,7 +12,7 @@ class Address(models.Model):
 class Customers(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=50)
-    second_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
     address = models.ForeignKey(Address, on_delete=models.CASCADE)
     phone_number = models.CharField(max_length=9)
 

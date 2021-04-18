@@ -14,13 +14,24 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
 from django.urls import path
 from Users import views as Users_views
+from Home import views as Home_views
 
 urlpatterns = [
+    path('', Home_views.home, name='home'),
     path('admin/', admin.site.urls),
-    path('registerCustomer/', Users_views.registerCustomer),
-    path('registerRestaurant/', Users_views.registerRestaurant),
-    path('registerDelivery/', Users_views.registerDelivery),
-    path('registrationSuccessful/', Users_views.registrationSuccessful, name='registration-successful')
-]
+    path('registerCustomer/', Users_views.registerCustomer, name='registerCustomer'),
+    path('registerRestaurant/', Users_views.registerRestaurant, name='registerRestaurant'),
+    path('registerDelivery/', Users_views.registerDelivery, name='registerDelivery'),
+    path('registrationSuccessful/', Users_views.registrationSuccessful, name='registration-successful'),
+    path('login/', auth_views.LoginView.as_view(template_name='Users/login.html', redirect_authenticated_user=True), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(template_name='Users/logout.html'), name='logout'),
+    path('register/', Users_views.register, name='register'),
+    path('fillCustomer/', Users_views.fillCustomer, name='fillCustomer'),
+    path('loginRedirect/', Users_views.loginRedirect, name='loginRedirect'),
+    path('fill/', Users_views.fillData, name='fill'),
+    # path('fillRestaurant/', Users_views.fillRestaurant, name='fillRestaurant'),
+    # path('fillDelivery/', Users_views.fillDelivery, name='fillDelivery')
+    ]
