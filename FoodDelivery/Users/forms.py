@@ -34,6 +34,8 @@ class fillRestaurantForm(forms.Form):
     flat_number = forms.IntegerField()
     phone_number = forms.CharField()
     NIP = forms.CharField()
+    open_time = forms.TimeField()
+    close_time = forms.TimeField()
 
 
 

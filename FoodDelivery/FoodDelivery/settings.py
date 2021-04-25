@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Home.apps.HomeConfig',
-    'Users.apps.UsersConfig'
+    'Users.apps.UsersConfig',
+    'OrderManagement.apps.OrdermanagementConfig',
     
 ]
 

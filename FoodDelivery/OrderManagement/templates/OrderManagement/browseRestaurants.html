@@ -1,0 +1,15 @@
+
+
+{% for restaurant in restaurants %}
+
+<a href = "{% url 'restaurantPage' restaurant.id %}" >Restarant Page</a>
+<p>{{restaurant.restaurant_name}}</p>
+<p>{{restaurant.address.city}}</p>
+<p>{{restaurant.address.street}}</p>
+<p>{{restaurant.address.building_number}}</p>
+<p>{{restaurant.address.flat_number}}</p>
+<p>{{restaurant.open_time}}</p>
+<p>{{restaurant.close_time}}</p>
+<p>{{restaurant.phone_number}}</p>
+
+{% endfor %}

@@ -1,5 +1,6 @@
 from django.contrib import admin
 from Users.models import Restaurants,Deliverers,Customers,PendingRestaurants
+from OrderManagement.models import Menu
 
 @admin.register(Deliverers)
 class DeliverersAdmin(admin.ModelAdmin):
@@ -24,7 +25,9 @@ class PendingRestaurantsAdmin(admin.ModelAdmin):
             restaurant = Restaurants(user = pending_restaurant.user,restaurant_name = pending_restaurant.restaurant_name,
                                     address = pending_restaurant.address,phone_number = pending_restaurant.phone_number,
                                     NIP = pending_restaurant.NIP)
+            menu = Menu(restaurant=restaurant)
             restaurant.save()
+            menu.save()
             pending_restaurant.delete()
 
 

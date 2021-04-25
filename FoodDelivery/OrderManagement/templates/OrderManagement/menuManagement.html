@@ -1,0 +1,15 @@
+
+
+{% for detail in details %}
+{{ detail.dish.name }}
+{{ detail.dish.price }}
+{{ detail.dish.description }}
+<form action = "{% url 'deleteDish' %}" method ="POST">
+    {% csrf_token %}
+    <input type  = "hidden" name = "dish_id" value = {{detail.dish.id}}>
+    <input type = "submit" class = "btn" value = "Delete Dish">
+</form>
+{% endfor %}
+</br>
+<a href="{% url 'addDish' %}">AddDish</a>
+

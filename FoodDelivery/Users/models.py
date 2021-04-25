@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from OrderManagement.models import Menu
+from django.utils import timezone
 
 
 class Address(models.Model):
@@ -23,6 +25,8 @@ class Restaurants(models.Model):
     address = models.ForeignKey(Address, on_delete=models.CASCADE)
     phone_number = models.CharField(max_length=9)
     NIP = models.CharField(max_length=12)
+    open_time = models.TimeField(default = timezone.now())
+    close_time = models.TimeField(default = timezone.now())
     
 
 class PendingRestaurants(models.Model):
@@ -31,6 +35,8 @@ class PendingRestaurants(models.Model):
     address = models.ForeignKey(Address, on_delete=models.CASCADE)
     phone_number = models.CharField(max_length=9)
     NIP = models.CharField(max_length=12)
+    open_time = models.TimeField(default = timezone.now())
+    close_time = models.TimeField(default = timezone.now())
 
 
 class Deliverers(models.Model):
@@ -38,6 +44,9 @@ class Deliverers(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     phone_number = models.CharField(max_length=9)
+
+
+
 
 
 

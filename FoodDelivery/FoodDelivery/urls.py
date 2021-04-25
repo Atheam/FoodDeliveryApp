@@ -18,6 +18,7 @@ from django.contrib.auth import views as auth_views
 from django.urls import path
 from Users import views as Users_views
 from Home import views as Home_views
+from OrderManagement import views as OrderManagement_views
 
 urlpatterns = [
     path('', Home_views.home, name='home'),
@@ -34,5 +35,13 @@ urlpatterns = [
     path('fill/', Users_views.fillData, name='fill'),
     path('fillRestaurant/', Users_views.fillRestaurant, name='fillRestaurant'),
     path('fillDelivery/', Users_views.fillDelivery, name='fillDelivery'),
-    path('profile/',Home_views.profile,name='profile')
+    path('profile/',Home_views.profile,name='profile'),
+    path('manageMenu/',OrderManagement_views.manage_menu,name = 'manageMenu'),
+    path('addDish/',OrderManagement_views.add_dish,name = 'addDish'),
+    path('deleteDish/',OrderManagement_views.delete_dish,name = 'deleteDish'),
+    path('browseRestaurants/',OrderManagement_views.browse_restaurants,name = 'browseRestaurants'),
+    path('restaurantPage/<int:id>/',OrderManagement_views.restaurant_page,name = 'restaurantPage'),
+    path('addToCart/',OrderManagement_views.add_to_cart,name="addToCart"),
+    path("placeOrder/",OrderManagement_views.place_order,name="placeOrder"),
+
     ]

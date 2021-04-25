@@ -134,8 +134,12 @@ def fillRestaurant(request):
             restaurant_name = form.cleaned_data['restaurant_name']
             NIP = form.cleaned_data['NIP']
             phone_number = form.cleaned_data['phone_number']
-            pending_restaurant = PendingRestaurants(user = request.user,address = address,restaurant_name = restaurant_name,
-                                                NIP = NIP,phone_number = phone_number)
+            open_time = form.cleaned_data['open_time']
+            close_time = form.cleaned_data['close_time']
+            pending_restaurant = PendingRestaurants(user = request.user,address = address,
+                                                    restaurant_name = restaurant_name,
+                                                NIP = NIP,phone_number = phone_number,
+                                                open_time = open_time,close_time = close_time)
             pending_restaurant.save()
             return redirect('home')
     else:

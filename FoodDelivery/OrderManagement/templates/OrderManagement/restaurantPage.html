@@ -1,0 +1,21 @@
+<p>{{restaurant.restaurant_name}}</p>
+<p>{{restaurant.address.city}}</p>
+<p>{{restaurant.address.street}}</p>
+<p>{{restaurant.address.building_number}}</p>
+<p>{{restaurant.address.flat_number}}</p>
+<p>{{restaurant.open_time}}</p>
+<p>{{restaurant.close_time}}</p>
+<p>{{restaurant.phone_number}}</p>
+
+
+{% for detail in details %}
+<p>{{ detail.dish.name }}</p>
+<p>{{ detail.dish.price }}</p>
+<p>{{ detail.dish.description }}</p>
+<form action = "{% url 'addToCart'%}" method ="POST">
+    {% csrf_token %}
+    <input type  = "hidden" name = "restaurant_id" value = {{restaurant.id}}>
+    <input type  = "hidden" name = "dish_id" value = {{detail.dish.id}}>
+    <input type = "submit" class = "btn" value = "Add to cart">
+</form>
+{% endfor %}
