@@ -19,6 +19,7 @@ from django.urls import path
 from Users import views as Users_views
 from Home import views as Home_views
 from OrderManagement import views as OrderManagement_views
+from OrderExecution import views as OrderExecution_views
 
 urlpatterns = [
     path('', Home_views.home, name='home'),
@@ -42,6 +43,16 @@ urlpatterns = [
     path('browseRestaurants/',OrderManagement_views.browse_restaurants,name = 'browseRestaurants'),
     path('restaurantPage/<int:id>/',OrderManagement_views.restaurant_page,name = 'restaurantPage'),
     path('addToCart/',OrderManagement_views.add_to_cart,name="addToCart"),
-    path("placeOrder/",OrderManagement_views.place_order,name="placeOrder"),
-
+    path("cartInfo/",OrderManagement_views.cart_info,name="cartInfo"),
+    path("placeOrder/",OrderExecution_views.place_order,name="placeOrder"),
+    path("pendingOrders/",OrderExecution_views.pending_orders_r,name="pendingOrders"),
+    path('acceptOrderR/',OrderExecution_views.accept_order_r,name ="acceptOrderR"),
+    path('acceptOrderD/',OrderExecution_views.accept_order_d,name ="acceptOrderD"),
+    path("orderDelivery/",OrderExecution_views.order_delivery,name="orderDelivery"),
+    path("changeDelivererStatus/",Home_views.change_deliverer_status,name="changeDelivererStatus"),
+    path("completeOrder/",OrderExecution_views.complete_order,name ="completeOrder"),
+    path("yourOrder/",OrderExecution_views.your_order,name = "yourOrder"),
+    path("declineOrderR/",OrderExecution_views.decline_order_r,name="declineOrderR"),
+    path("declineOrderD/",OrderExecution_views.decline_order_d,name = "declineOrderD"),
+    path("profile/updateLocation/",OrderExecution_views.update_location,name ="updateLocation"),
     ]

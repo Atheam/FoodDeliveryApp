@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'Home.apps.HomeConfig',
     'Users.apps.UsersConfig',
     'OrderManagement.apps.OrdermanagementConfig',
+    'OrderExecution.apps.OrderexecutionConfig',
     
 ]
 

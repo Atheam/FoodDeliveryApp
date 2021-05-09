@@ -9,6 +9,10 @@
 {% for dish,quantity in items %}
 <p>{{dish.name}}</p>
 <p>{{quantity}}</p>
+{% endfor %}    
 
+<form action = "{% url 'placeOrder' %}" method ="POST">
+    {% csrf_token %}
+    <input type = "submit" class = "btn" value = "Place Order">
+</form>
 
-{% endfor %}

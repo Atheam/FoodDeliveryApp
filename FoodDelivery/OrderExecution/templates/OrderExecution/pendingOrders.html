@@ -1,0 +1,22 @@
+
+
+{% for order in orders %}
+
+    {% if order.status == "Status.PENDING_RESTAURANT" %}
+        <p>{{order.price}}</p>
+        <p>{{order.restaurant.restaurant_name}}</p>
+        <form action = "{% url 'acceptOrderR' %}" method ="POST">
+            {% csrf_token %}
+            <input type  = "hidden" name = "order_id" value = {{order.id}}>
+            <input type = "submit" class = "btn" value = "Accept Order">
+        </form>
+        <form action = "{% url 'declineOrderR' %}" method ="POST">
+            {% csrf_token %}
+            <input type  = "hidden" name = "order_id" value = {{order.id}}>
+            <input type = "submit" class = "btn" value = "Decline Order">
+        </form>
+        
+    {% endif %}
+    
+    
+{% endfor %}    

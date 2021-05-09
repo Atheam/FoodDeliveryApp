@@ -1,11 +1,11 @@
-from django.shortcuts import render, redirect
-from Users.models import Customers, Restaurants, Deliverers
+from Users.models import Customers, Restaurants, Deliverers,DelivererStatus
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render,redirect
+from django.http import HttpResponse
 
 
 def home(request):
     return render(request, 'Home/home.html')
-
 
 
 @login_required()
@@ -25,6 +25,17 @@ def profile(request):
         return render(request,'Home/delivererProfile.html',args)
     else:
         return redirect('home')
+
+def change_deliverer_status(request):
+    deliverer = Deliverers.objects.get(user = request.user)
+    if deliverer.status == str(DelivererStatus.AVAILABLE):
+        deliverer.status = DelivererStatus.NOTAVAILABLE
+    else:
+        deliverer.status = DelivererStatus.AVAILABLE
+    deliverer.save()
+    return redirect("profile")
+
+
 
 
 

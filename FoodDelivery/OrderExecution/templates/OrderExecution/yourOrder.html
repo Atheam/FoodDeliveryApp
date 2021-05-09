@@ -1,0 +1,17 @@
+
+
+
+{% for order in orders %}
+
+
+    {% if order.status != "Status.COMPLETED" and order.status != "Status.DECLINED" %}
+
+        <p>{{order.price}}</p>
+        <p>{{order.status}}</p>
+        <p>{{order.restaurant.restaurant_name}}</p>
+        <p>{{order.deliverer.first_name}}</p>
+
+    {% endif %}
+
+    
+{% endfor %}    

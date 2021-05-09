@@ -66,10 +66,9 @@ def add_to_cart(request):
     request.session['cart'] = cart 
     return redirect("restaurantPage",restaurant_id)
 
-def place_order(request):
+def cart_info(request):
     cart = request.session.get('cart',{})
     items = []
-    print(cart)
     
     for key,value in cart.items():
         if key == "restaurant_id":
@@ -81,4 +80,4 @@ def place_order(request):
     restaurant = Restaurants.objects.get(id = restaurant_id)
 
     args = {"restaurant":restaurant,"items":items}
-    return render(request,"OrderManagement/placeOrder.html",args)
+    return render(request,"OrderManagement/cartInfo.html",args)
