@@ -10,8 +10,6 @@ class DelivererStatus(Enum):
     AVAILABLE = "AVAILABLE"
     BUSY = "BUSY"
 
-    
-
 class Address(models.Model):
     city = models.CharField(max_length=50)
     street = models.CharField(max_length=100)

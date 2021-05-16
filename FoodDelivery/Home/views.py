@@ -4,6 +4,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 
 
+
 def home(request):
     return render(request, 'Home/home.html')
 
@@ -34,6 +35,8 @@ def change_deliverer_status(request):
         deliverer.status = DelivererStatus.AVAILABLE
     deliverer.save()
     return redirect("profile")
+
+
 
 
 

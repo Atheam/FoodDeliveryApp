@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'Users.apps.UsersConfig',
     'OrderManagement.apps.OrdermanagementConfig',
     'OrderExecution.apps.OrderexecutionConfig',
+    'crispy_forms',
     
 ]
 
@@ -124,11 +125,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'Home/static/'
+
 
 LOGIN_REDIRECT_URL = 'loginRedirect'
 
 LOGIN_URL = 'login'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 

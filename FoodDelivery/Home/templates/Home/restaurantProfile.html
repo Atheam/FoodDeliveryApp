@@ -1,4 +1,13 @@
 
+
+
+
+
+{% extends "Home/base.html" %}
+
+{% block content %}
+
+
 <p>Username: {{user.username}}</p> 
 <p>Email: {{user.email}}</p> 
 <p>Restaurant Name: {{restaurant.restaurant_name}}</p> 
@@ -7,6 +16,7 @@
 {{restaurant.address.flat_number}}</p>
 <p>Phone Number: {{restaurant.phone_number}}</p>
 
- 
+
+{% endblock content %}
 
 

@@ -1,9 +1,38 @@
-<div>
-<a href="{% url 'registerCustomer' %}">Register as a customer</a>
-</div>
-<div>
-<a href="{% url 'registerRestaurant' %}">Register as a restaurant</a>
-</div>
-<div>
-<a href="{% url 'registerDelivery' %}">Register as a deliverer</a>
-</div>
+
+
+{% extends "Home/base.html" %}
+{% load static %}
+{% block content %}
+
+
+
+
+<div class ="container">
+<div class="card-deck">
+    <div class="card text-center">
+      <img class="card-img-top" src="{% static 'Home/card-img.jpeg' %}" alt="Card image cap">
+      <div class="card-body">
+        <h4 class="card-title">Sign up as customer</h4>
+        <p class="card-text p-2">Sign up as a customer in our app for great food!</p>
+        <a href="/registerCustomer" class="btn btn-primary">Sign up</a>
+      </div>
+    </div>
+    <div class="card text-center">
+      <img class="card-img-top" src="{% static 'Home/card-img.jpeg' %}" alt="Card image cap">
+      <div class="card-body">
+        <h4 class="card-title">Sign up as restaurant</h4>
+        <p class="card-text p-2">Sign up as a restaurant in our app to get customers!</p>
+        <a href="/registerRestaurant" class="btn btn-primary">Sign up</a>
+      </div>
+    </div>
+    <div class="card text-center">
+      <img class="card-img-top" src="{% static 'Home/card-img.jpeg' %}" alt="Card image cap">
+      <div class="card-body">
+        <h4 class="card-title">Sign up as deliverer</h4>
+        <p class="card-text p-2">Sign up as a deliverer in our app to earn fast and easy money!</p>
+        <a href="/registerDelivery" class="btn btn-primary">Sign up</a>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}

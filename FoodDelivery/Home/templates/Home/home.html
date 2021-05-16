@@ -1,16 +1,24 @@
-<h1>Home</h1>
-{% if user.is_authenticated %}
-<div>
-    <a href="{% url 'logout' %}">Log Out</a>
+
+
+
+
+{% extends "Home/base.html" %}
+
+{% block content %}
+<body class = "home-body">
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-8 col-centered">
+            <div class="maintxt">
+                <span class="overlay-text">Welcome to FoodDelivery app</span>
+            </div>
+        </div>
+    </div>
 </div>
-<div>
-    <a href ="{% url 'profile' %}">Your profile</a>
-</div>
-{% else %}
-<div>
-    <a href="{% url 'login' %}">Log In</a>
-</div>
-    <div>
-    <a href="{% url 'register' %}">Register</a>
-</div>
-{% endif %}
+
+</body>
+
+
+
+{% endblock content %}

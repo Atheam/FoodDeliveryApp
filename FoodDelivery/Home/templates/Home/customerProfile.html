@@ -1,4 +1,9 @@
 
+
+{% extends "Home/base.html" %}
+
+{% block content %}
+
 <p>Username: {{user.username}}</p> 
 <p>Email: {{user.email}}</p> 
 <p>First name: {{customer.first_name}}</p> 
@@ -6,6 +11,8 @@
 <p>Address: {{customer.address.city}},{{customer.address.street}}.{{customer.address.building_number}}.
 {{customer.address.flat_number}}</p>
 <p>Phone Number: {{customer.phone_number}}</p>
+
+{% endblock content %}
 
  
 
