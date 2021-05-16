@@ -1,2 +1,20 @@
+{% extends "Home/base.html" %}
+
+{% block content %}
+
+<div class="container w-50">
+    <div class="card mt-5 mx-auto text-center">
+        <div class="card-body">
+            <h1><a class="registration" href="{% url 'fill' %}">Fill your profile data</a></h1>
+            <h2>or</h2>
+<h1><a class="registration" href="{% url 'home' %}">Go back to home page</a></h1>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+
+
 <h1><a href="{% url 'fill' %}">Here</a> you can fill your information</h1>
 <a href="{% url 'home' %}">Skip</a>

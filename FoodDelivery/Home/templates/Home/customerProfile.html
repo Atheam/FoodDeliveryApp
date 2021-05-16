@@ -4,13 +4,20 @@
 
 {% block content %}
 
-<p>Username: {{user.username}}</p> 
-<p>Email: {{user.email}}</p> 
-<p>First name: {{customer.first_name}}</p> 
-<p>Last Name: {{customer.last_name}}</p>
-<p>Address: {{customer.address.city}},{{customer.address.street}}.{{customer.address.building_number}}.
-{{customer.address.flat_number}}</p>
-<p>Phone Number: {{customer.phone_number}}</p>
+<div class="container w-50">
+    <div class="card mt-5 mx-auto text-center">
+        <div class="card-body" style="font-size: 20px;">
+            <p style="font-size: 60px;" class="p-3">Your profile</p>
+            <p class="p-1">Username: <span style="color: grey;">{{user.username}}</span></p> 
+            <p class="p-1">Email: <span style="color: grey;">{{user.email}}</span></p> 
+            <p class="p-1">First name: <span style="color: grey;">{{customer.first_name}}</span></p> 
+            <p class="p-1">Last Name: <span style="color: grey;">{{customer.last_name}}</span></p>
+            <p class="p-1">Address: <span style="color: grey;">{{customer.address.city}},{{customer.address.street}}.{{customer.address.building_number}}.
+            {{customer.address.flat_number}}</span></p>
+            <p class="p-1" >Phone Number: <span style="color: grey;">{{customer.phone_number}}</span></p>
+        </div>
+    </div>
+</div>
 
 {% endblock content %}
 

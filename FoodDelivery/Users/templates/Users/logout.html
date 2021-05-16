@@ -1,3 +1,13 @@
-<h1>Log Out</h1>
-<h2>You have successfully logged out!</h2>
-<a href="{% url 'login' %}">Log In</a>
+{% extends "Home/base.html" %}
+
+{% block content %}
+<div class="container w-50">
+    <div class="card mt-5 mx-auto">
+        <div class="card-body">
+            <h1 class="p-2">Logout</h1>
+            <h2 class="p-2">You have successfully logged out!</h2>
+            <a class="btn btn-secondary m-2"href="{% url 'login' %}">Login</a>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -26,7 +26,6 @@ class PendingRestaurantsAdmin(admin.ModelAdmin):
             restaurant = Restaurants(user = pending_restaurant.user,restaurant_name = pending_restaurant.restaurant_name,
                                     address = pending_restaurant.address,phone_number = pending_restaurant.phone_number,
                                     NIP = pending_restaurant.NIP,open_time=pending_restaurant.open_time,close_time=pending_restaurant.close_time,)
-            menu = Menu(restaurant=restaurant)
             
             address= restaurant.address.city + " " + restaurant.address.street + " " + str(restaurant.address.building_number)
             api_response = requests.get('http://www.mapquestapi.com/geocoding/v1/address?key=slAQoOZkcAnGAlvEwWGY78cQlez7y7uB&location={0}'.format(address)).json()
@@ -34,6 +33,7 @@ class PendingRestaurantsAdmin(admin.ModelAdmin):
             restaurant.latitude = api_response["results"][0]["locations"][0]["latLng"]["lat"]
             restaurant.longitude = api_response["results"][0]["locations"][0]["latLng"]["lng"]
             restaurant.save()
+            menu = Menu(restaurant=restaurant)
             menu.save()
             pending_restaurant.delete()
 

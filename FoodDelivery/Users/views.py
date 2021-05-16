@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.contrib import messages
 
 
 from Users import models
@@ -17,6 +18,7 @@ def registerCustomer(request):
             user = form.save()
             group = Group.objects.get(name='Customers')
             group.user_set.add(user)
+            messages.success(request, f"Accout has been created!")
             return redirect('registration-successful')
     else:
         form = registrationForm()
@@ -30,6 +32,7 @@ def registerRestaurant(request):
             user = form.save()
             group = Group.objects.get(name='RestaurantManager')
             group.user_set.add(user)
+            messages.success(request, f"Accout has been created!")
             return redirect('registration-successful')
     else:
         form = registrationForm()
@@ -43,6 +46,7 @@ def registerDelivery(request):
             user = form.save()
             group = Group.objects.get(name='Delivery')
             group.user_set.add(user)
+            messages.success(request, f"Accout has been created!")
             return redirect('registration-successful')
     else:
         form = registrationForm()
@@ -99,6 +103,7 @@ def fillCustomer(request):
             customer = Customers(user=request.user, first_name=first_name, last_name=last_name, address=address,
                                  phone_number=phone_number)
             customer.save()
+            messages.success(request, f"Data have been successfully filled!")
             return redirect('home')
     else:
         form = fillCustomerForm()
@@ -114,6 +119,7 @@ def fillDelivery(request):
             phone_number = form.cleaned_data['phone_number']
             deliverer = Deliverers(user = request.user,first_name = first_name,last_name = last_name,phone_number = phone_number)
             deliverer.save()
+            messages.success(request, f"Data have been successfully filled!")
             return redirect('home')
     else:
         form = fillDeliveryForm(request.POST)
@@ -141,6 +147,7 @@ def fillRestaurant(request):
                                                 NIP = NIP,phone_number = phone_number,
                                                 open_time = open_time,close_time = close_time)
             pending_restaurant.save()
+            messages.success(request, f"Data have been successfully filled!")
             return redirect('home')
     else:
         form = fillRestaurantForm(request.POST)

@@ -1,6 +1,13 @@
-<h1>Register Deliverer</h1>
-<form method ="POST">
+{% extends "Users/registerBase.html" %}
+{% load crispy_forms_tags %}
+
+{% block register %}
+
+<h1 class="p-2">Register Deliverer</h1>
+<form class="p-2" method ="POST">
     {% csrf_token %}
-    {{form}}
-    <button type= "submit">Submit</button>
+    {{form|crispy}}
+    <button type= "submit" class="btn btn-outline-secondary">Submit</button>
 </form>
+
+{% endblock register %}

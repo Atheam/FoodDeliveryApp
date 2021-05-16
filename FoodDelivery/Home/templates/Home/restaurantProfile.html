@@ -2,20 +2,24 @@
 
 
 
-
 {% extends "Home/base.html" %}
 
 {% block content %}
 
-
-<p>Username: {{user.username}}</p> 
-<p>Email: {{user.email}}</p> 
-<p>Restaurant Name: {{restaurant.restaurant_name}}</p> 
-<p>NIP: {{restaurant.NIP}}</p>
-<p>Address: {{restaurant.address.city}},{{restaurant.address.street}}.{{restaurant.address.building_number}}.
-{{restaurant.address.flat_number}}</p>
-<p>Phone Number: {{restaurant.phone_number}}</p>
-
+<div class="container w-50">
+    <div class="card mt-5 mx-auto text-center">
+        <div class="card-body" style="font-size: 20px;">
+            <p style="font-size: 60px;" class="p-3">Your profile</p>
+            <p class="p-1">Username: <span style="color: grey;">{{user.username}}</span></p> 
+            <p class="p-1">Email: <span style="color: grey;">{{user.email}}</span></p> 
+            <p class="p-1">Restaurant name: <span style="color: grey;">{{restaurant.restaurant_name}}</span></p> 
+            <p class="p-1">NIP: <span style="color: grey;">{{restaurant.NIP}}</span></p>
+            <p class="p-1">Phone Number: <span style="color: grey;">{{restaurant.phone_number}}</span></p>
+            <p class="p-1">Adress: <span style="color: grey;">{{restaurant.address.city}},{{restaurant.address.street}} {{restaurant.address.building_number}}/{{restaurant.address.flat_number}}</span></p>
+          </form>
+        </div>
+    </div>
+</div>
 
 {% endblock content %}
 

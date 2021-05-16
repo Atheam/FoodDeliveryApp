@@ -1,14 +1,27 @@
 
-<p>Username: {{user.username}}</p> 
-<p>Email: {{user.email}}</p> 
-<p>First name: {{deliverer.first_name}}</p> 
-<p>Last Name: {{deliverer.last_name}}</p>
-<p>Phone Number: {{deliverer.phone_number}}</p>
-<p>{{ deliverer.status }}</p>
-<form action = "{% url 'changeDelivererStatus' %}" method ="POST">
-    {% csrf_token %}
-    <input type = "submit" class = "btn" value = "Change status">
-</form>
+{% extends "Home/base.html" %}
+
+{% block content %}
+
+<div class="container w-50">
+    <div class="card mt-5 mx-auto text-center">
+        <div class="card-body" style="font-size: 20px;">
+            <p style="font-size: 60px;" class="p-3">Your profile</p>
+            <p class="p-1">Username: <span style="color: grey;">{{user.username}}</span></p> 
+            <p class="p-1">Email: <span style="color: grey;">{{user.email}}</span></p> 
+            <p class="p-1">First name: <span style="color: grey;">{{deliverer.first_name}}</span></p> 
+            <p class="p-1">Last Name: <span style="color: grey;">{{deliverer.last_name}}</span></p>
+            <p class="p-1" >Phone Number: <span style="color: grey;">{{deliverer.phone_number}}</span></p>
+            <p class="p-1">Status: <span style="color: grey;">{{ deliverer.status }}</span></p>
+            <form action = "{% url 'changeDelivererStatus' %}" method ="POST">
+              {% csrf_token %}
+              <input type = "submit" class = "btn btn-outline-secondary mt-1" value = "Change status">
+          </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
 
 
 

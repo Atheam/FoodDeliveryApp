@@ -1,3 +1,15 @@
-<h1>Registration successful</h1>
-<h2>Go to main page<a href = "{% url 'home' %}">here</a></h2>
-<h2>Log In<a href = "{% url 'login' %}">here</a></h2>
+{% extends "Home/base.html" %}
+
+{% block content %}
+
+<div class="container w-50">
+    <div class="card mt-5 mx-auto text-center">
+        <div class="card-body">
+            <h1 class="p-2">Registration successful!</h1>
+<h2 class="p-2"><a class="registration" href = "{% url 'home' %}">Go to main page</a></h2>
+<h2 class="p-2"><a class="registration" href = "{% url 'login' %}">Sign In</a></h2>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
