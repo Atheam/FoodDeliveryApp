@@ -1,15 +1,28 @@
+{% extends "Home/base.html" %}
+{% block content %}
 
+<div class="container mx-auto text-center mt-3">
 
 {% for restaurant in restaurants %}
 
-<a href = "{% url 'restaurantPage' restaurant.id %}" >Restarant Page</a>
-<p>{{restaurant.restaurant_name}}</p>
-<p>{{restaurant.address.city}}</p>
-<p>{{restaurant.address.street}}</p>
-<p>{{restaurant.address.building_number}}</p>
-<p>{{restaurant.address.flat_number}}</p>
-<p>{{restaurant.open_time}}</p>
-<p>{{restaurant.close_time}}</p>
-<p>{{restaurant.phone_number}}</p>
+<div class="container mt-3 bg-light text-center" style="height: 200px; border-radius: 10px;">
+    <div class="p-1" style="margin-top: 12px; font-size: 24px;">
+        <span class="h1">{{restaurant.restaurant_name}}
+    </div>
+    <div class="" style="margin-top: 12px;">
+        Address: {{restaurant.address.city}} {{restaurant.address.street}} {{restaurant.address.building_number}}/{{restaurant.address.building_number}}
+    </div>
+    <div class="" style="margin-top: 15px;">
+        Open time: {{restaurant.open_time}}  |  Close time: {{restaurant.close_time}}  |  Phone number: {{restaurant.phone_number}}
+    </div>
+    <div class="" style="margin-top: 12px; font-size: 24px;">
+        <a href = "{% url 'restaurantPage' restaurant.id %}" class="btn btn-outline-primary">Order here!</a>
+    </div>
+</div>
 
 {% endfor %}
+
+</div>
+<div style="height: 200px;"></div>
+
+{% endblock content %}

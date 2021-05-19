@@ -54,7 +54,6 @@ def find_deliverer(order,excluded = None):
                         if  curr_dist < min_dist:
                                 min_dist = curr_dist
                                 closest_deliverer = deliverer
-        print(closest_deliverer.first_name)
         return closest_deliverer
 
 

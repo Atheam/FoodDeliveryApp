@@ -1,18 +1,43 @@
-<p>-----------------YOUR CART------------</p>
+{% extends "Home/base.html" %}
+{% block content %}
 
-<p>{{restaurant.restaurant_name}}</p>
-<p>{{restaurant.address.city}}</p>
-<p>{{restaurant.address.street}}</p>
-<p>{{restaurant.address.building_number}}</p>
-<p>{{restaurant.address.flat_number}}</p>
+<div class="container mx-auto text-center mt-2">
+    <div class="container mt-3 bg-secondary text-center" style="height: 50px; border-radius: 10px;">
+        <h1>YOUR CART <i class="fas fa-shopping-cart"></i></h1>
+    </div>
+</div>
 
-{% for dish,quantity in items %}
-<p>{{dish.name}}</p>
-<p>{{quantity}}</p>
-{% endfor %}    
+<div class="container mx-auto text-center mt-4">
+<div class="container mt-3 bg-light text-center" style="height: 150px; border-radius: 10px;">
+    <div class="p-1" style="margin-top: 12px; font-size: 24px;">
+        <span class="h1">{{restaurant.restaurant_name}}
+    </div>
+    <div class="" style="margin-top: 12px;">
+        Address: {{restaurant.address.city}} {{restaurant.address.street}} {{restaurant.address.building_number}}/{{restaurant.address.building_number}}
+    </div>
+    <div class="" style="margin-top: 15px;">
+        Open time: {{restaurant.open_time}}  |  Close time: {{restaurant.close_time}}  |  Phone number: {{restaurant.phone_number}}
+    </div>
+</div>
+</div>
 
-<form action = "{% url 'placeOrder' %}" method ="POST">
-    {% csrf_token %}
-    <input type = "submit" class = "btn" value = "Place Order">
-</form>
+<div class="container mx-auto text-center mt-3">
+    {% for dish,quantity in items %}
+    <div class="container mt-3 bg-light d-inline-flex  text-center" style="height: 80px; border-radius: 10px;">
+        <div class="p-2" style="margin-top: 12px; font-size: 24px;">
+            {{dish.name}}
+        </div>
+        <div class="h2 ml-auto" style="margin-top: 20px;">
+            {{quantity}}
+        </div>
+    </div>
+    {% endfor %}  
+    <form class="mt-3" action = "{% url 'placeOrder' %}" method ="POST">
+        {% csrf_token %}
+        <input type = "submit" class = "btn btn-outline-secondary" value = "Place Order">
+    </form>
+</div> 
+<div style="height: 200px;"></div>
+
+{% endblock content %}
 
