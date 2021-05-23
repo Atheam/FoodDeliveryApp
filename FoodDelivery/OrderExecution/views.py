@@ -83,7 +83,7 @@ def decline_order_r(request):
         return redirect("pendingOrders")
 
 
-def pending_orders_r(request):
+def pending_orders(request):
         restaurant = Restaurants.objects.get(user = request.user)
         pending_orders = Order.objects.filter(restaurant= restaurant)
         args = {"orders":pending_orders}
@@ -136,14 +136,16 @@ def complete_order(request):
 
 
 def update_location(request):
-        
         deliverer = Deliverers.objects.get(user = request.user)
         latitude = request.POST.get('latitude', None)
         longitude = request.POST.get('longitude', None)
+        print(latitude,longitude)
         deliverer.latitude = latitude
         deliverer.longitude = longitude
         deliverer.save()
-        return HttpResponse("OK")       
+        return HttpResponse(json.dumps({'status': "OK"}), content_type="application/json")    
+
+
 
         
     

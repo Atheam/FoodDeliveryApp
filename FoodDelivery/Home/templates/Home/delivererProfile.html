@@ -21,10 +21,6 @@
     </div>
 </div>
 
-{% endblock content %}
-
-
-
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -39,7 +35,7 @@ window.onload = function geoFindMe() {
     const longitude = position.coords.longitude;
 
     $.ajax({
-    url: 'updateLocation/',
+    url: "{% url 'updateLocation' %}",
     type: 'POST',
     data: {"latitude":latitude,"longitude":longitude,csrfmiddlewaretoken: window.CSRF_TOKEN},
     dataType: 'json',
@@ -53,14 +49,14 @@ window.onload = function geoFindMe() {
   }
 
   function error() {
-    //TODO
+    console.log("Problem with getting location")
   }
 
   if(!navigator.geolocation) {
-    //TODO
+    console.log("No geolocation available")
   } else {
     var options = {
-        enableHighAccuracy: true
+        
     }
     navigator.geolocation.watchPosition(success, error,options);
   }
@@ -68,6 +64,8 @@ window.onload = function geoFindMe() {
 }
 
 </script>
+
+{% endblock content %}
 
 
 

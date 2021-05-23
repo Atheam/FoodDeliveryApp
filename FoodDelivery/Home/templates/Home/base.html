@@ -15,25 +15,25 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">Home</a>
+        <a class="navbar-brand" href="{% url 'home' %}">Home</a>
         {% if user.is_authenticated %}
-        <a class="navbar-brand" href="#">Your profile</a>
+        <a class="navbar-brand" href="{% url 'profile' %}">Your profile</a>
         {% endif %}
-        <a class="navbar-brand" href="#">Browse Restaurants</a>
+        <a class="navbar-brand" href="{% url 'browseRestaurants' %}">Browse Restaurants</a>
         {% if "Customers" in user.groups.all.0.name %}
-        <a class="navbar-brand" href="#">Your cart</a>
+        <a class="navbar-brand" href="{% url 'cartInfo' %}">Your cart</a>
         {% endif %} 
         {% if "Restaurant" in user.groups.all.0.name %}
-        <a class="navbar-brand" href="#">Manage menu</a>
-        <a class="navbar-brand" href="#">Pending orders</a>
+        <a class="navbar-brand" href="{% url 'manageMenu' %}">Manage menu</a>
+        <a class="navbar-brand" href="{% url 'pendingOrders' %}">Pending orders</a>
         {% endif %} 
         {% if "Delivery" in user.groups.all.0.name %}
-        <a class="navbar-brand" href="#">Pending orders</a>
+        <a class="navbar-brand" href="{% url 'orderDelivery' %}">Pending orders</a>
         {% endif %} 
         {% if user.is_authenticated %}
-        <a class="navbar-brand pull-right"" href="#">Logout</a>
+        <a class="navbar-brand pull-right"" href="{% url 'logout' %}">Logout</a>
         {% else %}
-        <a class="navbar-brand pull-right"" href="#">Login</a>
+        <a class="navbar-brand pull-right"" href="{% url 'login' %}">Login</a>
         {% endif %}
     </nav>
 

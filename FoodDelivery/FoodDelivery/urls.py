@@ -15,44 +15,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from django.urls import path
+from django.urls import path,include
 from Users import views as Users_views
 from Home import views as Home_views
 from OrderManagement import views as OrderManagement_views
 from OrderExecution import views as OrderExecution_views
 
 urlpatterns = [
-    path('', Home_views.home, name='home'),
+
+    path('home/', include('Home.urls')),
+    path('users/',include('Users.urls')),
+    path('orderManagement/',include('OrderManagement.urls')),
+    path('orderExecution',include("OrderExecution.urls")),
     path('admin/', admin.site.urls),
-    path('registerCustomer/', Users_views.register_customer, name='registerCustomer'),
-    path('registerRestaurant/', Users_views.register_restaurant, name='registerRestaurant'),
-    path('registerDelivery/', Users_views.register_delivery, name='registerDelivery'),
-    path('registrationSuccessful/', Users_views.registration_successful, name='registration-successful'),
     path('login/', auth_views.LoginView.as_view(template_name='Users/login.html', redirect_authenticated_user=True), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='Users/logout.html'), name='logout'),
-    path('register/', Users_views.register, name='register'),
-    path('fillCustomer/', Users_views.fill_customer, name='fillCustomer'),
-    path('loginRedirect/', Users_views.login_redirect, name='loginRedirect'),
-    path('fill/', Users_views.fill_data, name='fill'),
-    path('fillRestaurant/', Users_views.fill_restaurant, name='fillRestaurant'),
-    path('fillDelivery/', Users_views.fill_delivery, name='fillDelivery'),
-    path('profile/',Home_views.profile,name='profile'),
-    path('manageMenu/',OrderManagement_views.manage_menu,name = 'manageMenu'),
-    path('addDish/',OrderManagement_views.add_dish,name = 'addDish'),
-    path('deleteDish/',OrderManagement_views.delete_dish,name = 'deleteDish'),
-    path('browseRestaurants/',OrderManagement_views.browse_restaurants,name = 'browseRestaurants'),
-    path('restaurantPage/<int:id>/',OrderManagement_views.restaurant_page,name = 'restaurantPage'),
-    path('addToCart/',OrderManagement_views.add_to_cart,name="addToCart"),
-    path("cartInfo/",OrderManagement_views.cart_info,name="cartInfo"),
-    path("placeOrder/",OrderExecution_views.place_order,name="placeOrder"),
-    path("pendingOrders/",OrderExecution_views.pending_orders_r,name="pendingOrders"),
-    path('acceptOrderR/',OrderExecution_views.accept_order_r,name ="acceptOrderR"),
-    path('acceptOrderD/',OrderExecution_views.accept_order_d,name ="acceptOrderD"),
-    path("orderDelivery/",OrderExecution_views.order_delivery,name="orderDelivery"),
-    path("changeDelivererStatus/",Home_views.change_deliverer_status,name="changeDelivererStatus"),
-    path("completeOrder/",OrderExecution_views.complete_order,name ="completeOrder"),
-    path("yourOrder/",OrderExecution_views.your_order,name = "yourOrder"),
-    path("declineOrderR/",OrderExecution_views.decline_order_r,name="declineOrderR"),
-    path("declineOrderD/",OrderExecution_views.decline_order_d,name = "declineOrderD"),
-    path("profile/updateLocation/",OrderExecution_views.update_location,name ="updateLocation"),
+
     ]
