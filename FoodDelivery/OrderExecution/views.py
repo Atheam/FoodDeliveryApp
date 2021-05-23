@@ -49,7 +49,7 @@ def find_deliverer(order,excluded = None):
         restaurant_longitude = restaurant.longitude
         min_dist = float("inf")
         for deliverer in Deliverers.objects.all():
-                if deliverer.status == str(DelivererStatus.AVAILABLE) and deliverer != excluded:
+                if deliverer.status == DelivererStatus.AVAILABLE and deliverer != excluded:
                         curr_dist = dist(restaurant_latitude,restaurant_longitude,deliverer.latitude,deliverer.longitude)
                         if  curr_dist < min_dist:
                                 min_dist = curr_dist
@@ -59,7 +59,7 @@ def find_deliverer(order,excluded = None):
 
 def check_expiration(order):
         print("BEFORE")
-        time.sleep(60)
+        time.sleep(120)
         if order.status == Status.PENDING_DELIVERY:
                 print("AFTER")
                 order.status = Status.DECLINED

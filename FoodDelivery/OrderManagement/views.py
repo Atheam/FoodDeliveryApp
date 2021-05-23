@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from Users.models import Restaurants    
 from OrderManagement.models import Menu,MenuDetails,Dish  
-from OrderManagement.forms import add_dish_form
+from OrderManagement.forms import AddDishForm
 from django.shortcuts import redirect
 
 def manage_menu(request):
@@ -15,7 +15,7 @@ def manage_menu(request):
 
 def add_dish(request):
     if request.method == "POST":
-        form = add_dish_form(request.POST)
+        form = AddDishForm(request.POST)
         if form.is_valid():
             name = form.cleaned_data['name']
             price = form.cleaned_data['price']
@@ -28,7 +28,7 @@ def add_dish(request):
             menu_details.save()
             return redirect('manageMenu')
     else:
-        form = add_dish_form()
+        form = AddDishForm()
     
     return render(request,'OrderManagement/addDish.html',{'form':form})
 

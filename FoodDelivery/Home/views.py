@@ -29,7 +29,7 @@ def profile(request):
 
 def change_deliverer_status(request):
     deliverer = Deliverers.objects.get(user = request.user)
-    if deliverer.status == str(DelivererStatus.AVAILABLE):
+    if deliverer.status == DelivererStatus.AVAILABLE:
         deliverer.status = DelivererStatus.NOTAVAILABLE
     else:
         deliverer.status = DelivererStatus.AVAILABLE

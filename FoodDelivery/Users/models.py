@@ -5,10 +5,10 @@ from django.utils import timezone
 from enum import Enum
 
 
-class DelivererStatus(Enum):
-    NOTAVAILABLE = "NOTAVAILABLE"
-    AVAILABLE = "AVAILABLE"
-    BUSY = "BUSY"
+class DelivererStatus(models.TextChoices):
+        NOTAVAILABLE = "Unavailable"
+        AVAILABLE = "Available"
+        BUSY = "Busy"
 
 class Address(models.Model):
     city = models.CharField(max_length=50)
@@ -45,7 +45,7 @@ class PendingRestaurants(models.Model):
 
 class Deliverers(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    status = models.CharField(max_length= 16,default= DelivererStatus.NOTAVAILABLE)
+    status = models.CharField(max_length= 16,choices = DelivererStatus.choices,default= DelivererStatus.NOTAVAILABLE)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     phone_number = models.CharField(max_length=9)

@@ -11,7 +11,7 @@ from django.contrib.auth.models import Group
 from Users.models import Customers,Deliverers,PendingRestaurants,Restaurants
 
 
-def registerCustomer(request):
+def register_customer(request):
     if request.method == "POST":
         form = registrationForm(request.POST)
         if form.is_valid():
@@ -25,7 +25,7 @@ def registerCustomer(request):
     return render(request, 'Users/registerUser.html', {'form': form})
 
 
-def registerRestaurant(request):
+def register_restaurant(request):
     if request.method == "POST":
         form = registrationForm(request.POST)
         if form.is_valid():
@@ -39,7 +39,7 @@ def registerRestaurant(request):
     return render(request, 'Users/registerRestaurant.html', {'form': form})
 
 
-def registerDelivery(request):
+def register_delivery(request):
     if request.method == "POST":
         form = registrationForm(request.POST)
         if form.is_valid():
@@ -53,7 +53,7 @@ def registerDelivery(request):
     return render(request, 'Users/registerDelivery.html', {'form': form})
 
 
-def registrationSuccessful(request):
+def registration_successful(request):
     return render(request, 'Users/registrationSuccessful.html')
 
 
@@ -61,7 +61,7 @@ def register(request):
     return render(request, 'Users/register.html')
 
 
-def loginRedirect(request):
+def login_redirect(request):
     group = request.user.groups.filter(user=request.user)[0]
     if group.name == "Customers":
         if Customers.objects.filter(user=request.user).count() == 0:
@@ -75,7 +75,7 @@ def loginRedirect(request):
     return redirect('home')
 
 
-def fillData(request):
+def fill_data(request):
     group = request.user.groups.filter(user=request.user)[0]
     if group.name == "Customers":
         return redirect('fillCustomer')
@@ -87,7 +87,7 @@ def fillData(request):
         return redirect('home')
 
 
-def fillCustomer(request):
+def fill_customer(request):
     if request.method == "POST":
         form = fillCustomerForm(request.POST)
         if form.is_valid():
@@ -110,7 +110,7 @@ def fillCustomer(request):
     return render(request, 'Users/fillCustomer.html', {'form': form})
 
 
-def fillDelivery(request):
+def fill_delivery(request):
     if request.method == "POST":
         form = fillDeliveryForm(request.POST)
         if form.is_valid():
@@ -127,7 +127,7 @@ def fillDelivery(request):
 
 
 
-def fillRestaurant(request):
+def fill_restaurant(request):
     if request.method == "POST":
         form = fillRestaurantForm(request.POST)
         if form.is_valid():
