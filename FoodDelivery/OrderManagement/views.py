@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from Users.models import Restaurants    
+from Users.models import Customers, Restaurants    
 from OrderManagement.models import Menu,MenuDetails,Dish  
 from OrderManagement.forms import AddDishForm
 from django.shortcuts import redirect
@@ -69,21 +69,25 @@ def add_to_cart(request):
     return redirect("restaurantPage",restaurant_id)
 
 def cart_info(request):
-    cart = request.session.get('cart',{})
-    items = []
-    for key,value in cart.items():
-        print(key,value)
-        if key == "restaurant_id":
-            restaurant_id = value
-        else:
-            dish = Dish.objects.get(id = key)
-            items.append((dish,value))
-
-    if items:
-        restaurant = Restaurants.objects.get(id = restaurant_id)
-        args = {"restaurant":restaurant,"items":items,"empty":False}
+    customer = Customers.objects.filter(user = request.user).first()
+    if not customer:
+        args ={"accepted":False}
     else:
-        args = {"empty":True}
+        cart = request.session.get('cart',{})
+        items = []
+        for key,value in cart.items():
+            print(key,value)
+            if key == "restaurant_id":
+                restaurant_id = value
+            else:
+                dish = Dish.objects.get(id = key)
+                items.append((dish,value))
+
+        if items:
+            restaurant = Restaurants.objects.get(id = restaurant_id)
+            args = {"restaurant":restaurant,"items":items,"empty":False,"accepted":True}
+        else:
+            args = {"empty":True,"accepted":True}
 
     
     return render(request,"OrderManagement/cartInfo.html",args)

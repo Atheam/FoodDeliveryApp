@@ -9,10 +9,9 @@ import datetime
 import threading,time
 import json 
 
-
 def place_order(request):
     cart = request.session.get('cart',{})
-    customer = Customers.objects.get(user = request.user)
+    customer = Customers.objects.filter(user = request.user)
     restaurant_id = cart.get("restaurant_id",-1)
     restaurant = Restaurants.objects.get(id = restaurant_id)
     now = datetime.datetime.now()
@@ -133,7 +132,6 @@ def complete_order(request):
         deliverer.status = DelivererStatus.AVAILABLE
         deliverer.save()
         return redirect("orderDelivery")
-
 
 def update_location(request):
         deliverer = Deliverers.objects.get(user = request.user)
