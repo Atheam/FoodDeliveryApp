@@ -1,6 +1,8 @@
 {% extends "Home/base.html"%}
 {% block content %}  
 
+
+{% if accepted %}
 <div class="container mx-auto text-center mt-3">
     <h1 class="container bg-secondary w-50 rounded">MENU <i class="fas fa-utensils"></i></h1>
     {% for order in orders %}
@@ -29,5 +31,9 @@
     {% endif %}
 {% endfor %} 
 </div>
+{% else %}
+<p>Please fill your information and wait for acceptance</p> <!-- do zrobienia zeby ladnie bylo -->
+
+{% endif %}
 
 {% endblock content %}

@@ -82,9 +82,11 @@ def decline_order_r(request):
 
 
 def pending_orders(request):
-        restaurant = Restaurants.objects.get(user = request.user)
-        pending_orders = Order.objects.filter(restaurant= restaurant)
-        args = {"orders":pending_orders}
+        restaurant = Restaurants.objects.filter(user = request.user).first()
+        if restaurant:
+                pending_orders = Order.objects.filter(restaurant= restaurant)
+                args = {"orders":pending_orders,"accepted":True}
+        args = {"accepted":False}
         return render(request,"OrderExecution/pendingOrders.html",args)
 
 def accept_order_d(request):

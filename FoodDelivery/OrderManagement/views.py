@@ -6,11 +6,13 @@ from OrderManagement.forms import AddDishForm
 from django.shortcuts import redirect
 
 def manage_menu(request):
-    restaurant = Restaurants.objects.filter(user = request.user)[0]
-    menu = Menu.objects.filter(restaurant = restaurant)[0]
-    details = MenuDetails.objects.filter(menu = menu)
-
-    args = {'details':details}
+    restaurant = Restaurants.objects.filter(user = request.user).first()
+    if restaurant:
+        menu = Menu.objects.filter(restaurant = restaurant).first()
+        details = MenuDetails.objects.filter(menu = menu)
+        args = {'details':details,'accepted':True}
+    else:
+        args = {'accepted':False}
     return render(request,'OrderManagement/menuManagement.html',args)
 
 def add_dish(request):
