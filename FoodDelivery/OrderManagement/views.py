@@ -69,15 +69,19 @@ def add_to_cart(request):
 def cart_info(request):
     cart = request.session.get('cart',{})
     items = []
-    
     for key,value in cart.items():
+        print(key,value)
         if key == "restaurant_id":
             restaurant_id = value
         else:
             dish = Dish.objects.get(id = key)
             items.append((dish,value))
 
-    restaurant = Restaurants.objects.get(id = restaurant_id)
+    if items:
+        restaurant = Restaurants.objects.get(id = restaurant_id)
+        args = {"restaurant":restaurant,"items":items,"empty":False}
+    else:
+        args = {"empty":True}
 
-    args = {"restaurant":restaurant,"items":items}
+    
     return render(request,"OrderManagement/cartInfo.html",args)

@@ -58,10 +58,8 @@ def find_deliverer(order,excluded = None):
 
 
 def check_expiration(order):
-        print("BEFORE")
         time.sleep(120)
         if order.status == Status.PENDING_DELIVERY:
-                print("AFTER")
                 order.status = Status.DECLINED
                 order.save()
 
@@ -139,7 +137,6 @@ def update_location(request):
         deliverer = Deliverers.objects.get(user = request.user)
         latitude = request.POST.get('latitude', None)
         longitude = request.POST.get('longitude', None)
-        print(latitude,longitude)
         deliverer.latitude = latitude
         deliverer.longitude = longitude
         deliverer.save()

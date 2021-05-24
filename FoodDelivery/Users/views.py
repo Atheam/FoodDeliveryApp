@@ -75,14 +75,25 @@ def login_redirect(request):
     return redirect('home')
 
 
+
 def fill_data(request):
     group = request.user.groups.filter(user=request.user)[0]
     if group.name == "Customers":
-        return redirect('fillCustomer')
+        if Customers.objects.filter(user = request.user).first():
+            return redirect('home')
+        else:
+            return fill_customer(request)
     elif group.name == "RestaurantManager":
-        return redirect('fillRestaurant')
+        if Restaurants.objects.filter(user = request.user).first():
+            return redirect('home')
+        else:
+            return fill_restaurant(request) 
     elif group.name == "Delivery":
-        return redirect('fillDelivery')
+        if Deliverers.objects.filter(user = request.user).first():
+            return redirect('home')
+        else:
+            return fill_delivery(request)
+        
     else:
         return redirect('home')
 

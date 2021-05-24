@@ -5,8 +5,7 @@
 {% for order in orders %}
 
 
-    {% if order.status != "Status.COMPLETED" and order.status != "Status.DECLINED" %}
-
+    {% if order.status != Status.COMPLETED and order.status != Status.DECLINED %}
     <div class="container w-50">
         <div class="card mt-5 mx-auto text-center">
             <div class="card-body" style="font-size: 20px;">
@@ -18,7 +17,6 @@
             </div>
         </div>
     </div>
-    
     {% endif %}
 
     

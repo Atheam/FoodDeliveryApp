@@ -1,6 +1,7 @@
 from django.contrib import admin
 from Users.models import Restaurants,Deliverers,Customers,PendingRestaurants
 from OrderManagement.models import Menu
+from django.conf import settings
 import requests
 
 @admin.register(Deliverers)
@@ -28,7 +29,7 @@ class PendingRestaurantsAdmin(admin.ModelAdmin):
                                     NIP = pending_restaurant.NIP,open_time=pending_restaurant.open_time,close_time=pending_restaurant.close_time,)
             
             address= restaurant.address.city + " " + restaurant.address.street + " " + str(restaurant.address.building_number)
-            api_response = requests.get('http://www.mapquestapi.com/geocoding/v1/address?key=slAQoOZkcAnGAlvEwWGY78cQlez7y7uB&location={0}'.format(address)).json()
+            api_response = requests.get('http://www.mapquestapi.com/geocoding/v1/address?key={0}&location={1}'.format(settings.API_KEY,address)).json()
             
             restaurant.latitude = api_response["results"][0]["locations"][0]["latLng"]["lat"]
             restaurant.longitude = api_response["results"][0]["locations"][0]["latLng"]["lng"]

@@ -22,11 +22,10 @@ from OrderManagement import views as OrderManagement_views
 from OrderExecution import views as OrderExecution_views
 
 urlpatterns = [
-
     path('home/', include('Home.urls')),
     path('users/',include('Users.urls')),
     path('orderManagement/',include('OrderManagement.urls')),
-    path('orderExecution',include("OrderExecution.urls")),
+    path('orderExecution/',include("OrderExecution.urls")),
     path('admin/', admin.site.urls),
     path('login/', auth_views.LoginView.as_view(template_name='Users/login.html', redirect_authenticated_user=True), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='Users/logout.html'), name='logout'),
