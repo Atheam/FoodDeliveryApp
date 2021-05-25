@@ -33,6 +33,9 @@ class Restaurants(models.Model):
     close_time = models.TimeField()
     latitude = models.CharField(max_length= 100,default = "0.0")
     longitude = models.CharField(max_length = 100, default = "0.0")
+    rate_count = models.IntegerField(default = 0)
+    rate_sum = models.IntegerField(default = 0)
+    rating = models.FloatField(default = 0)
     
 class PendingRestaurants(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -51,6 +54,9 @@ class Deliverers(models.Model):
     phone_number = models.CharField(max_length=9)
     latitude = models.CharField(max_length= 100,default = "0.0")
     longitude = models.CharField(max_length = 100, default = "0.0")
+    rate_count = models.IntegerField(default = 0)
+    rate_sum = models.IntegerField(default = 0)
+    rating = models.FloatField(default = 0)
 
 
 

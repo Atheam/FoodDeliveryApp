@@ -14,6 +14,8 @@ urlpatterns = [
     path("declineOrderR/",OrderExecution_views.decline_order_r,name="declineOrderR"),
     path("declineOrderD/",OrderExecution_views.decline_order_d,name = "declineOrderD"),
     path("profile/updateLocation/",OrderExecution_views.update_location,name ="updateLocation"), 
+    path("rateRestaurant/",OrderExecution_views.rate_restaurant,name = "rateRestaurant"),
+    path("rateDeliverer",OrderExecution_views.rate_deliverer,name = "rateDeliverer")
 ]
 
 

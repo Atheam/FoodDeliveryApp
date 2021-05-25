@@ -3,6 +3,7 @@ from OrderManagement.models import Dish
 from Users.models import Restaurants,Deliverers,Customers
 from enum import Enum
 
+
 class Status(models.TextChoices):
     PENDING_RESTAURANT = "Waiting for restaurant"
     PENDING_DELIVERY = "Waiting for deliverer"
@@ -16,6 +17,8 @@ class Order(models.Model):
     customer = models.ForeignKey(Customers, on_delete= models.CASCADE)
     restaurant = models.ForeignKey(Restaurants, on_delete = models.CASCADE)
     deliverer = models.ForeignKey(Deliverers, on_delete = models.CASCADE, null=True)
+    restaurant_rating = models.IntegerField(default = 0)
+    deliverer_rating = models.IntegerField(default = 0)
     date = models.DateTimeField()
 
 class OrderDetails(models.Model):

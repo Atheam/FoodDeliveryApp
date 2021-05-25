@@ -15,9 +15,12 @@
     <div class="" style="margin-top: 15px;">
         Open time: {{restaurant.open_time}}  |  Close time: {{restaurant.close_time}}  |  Phone number: {{restaurant.phone_number}}
     </div>
+    <p>Rating: {{restaurant.rating}} Number of rates: {{restaurant.rate_count}}</p> <!--tutaj jakos wyswietlic gwiazdki i rating obok pewnie-->
+    {% if "Customers" in user.groups.all.0.name %}
     <div class="" style="margin-top: 12px; font-size: 24px;">
         <a href = "{% url 'restaurantPage' restaurant.id %}" class="btn btn-outline-primary">Order here!</a>
     </div>
+    {% endif %}
 </div>
 
 {% endfor %}

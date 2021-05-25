@@ -10,7 +10,6 @@ from Users.forms import registrationForm, fillCustomerForm,fillDeliveryForm,fill
 from django.contrib.auth.models import Group
 from Users.models import Customers,Deliverers,PendingRestaurants,Restaurants
 
-
 def register_customer(request):
     if request.method == "POST":
         form = registrationForm(request.POST)

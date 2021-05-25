@@ -1,9 +1,35 @@
 {% extends "Home/base.html"%}
 {% block content %}  
 
-{% for order in orders %}
-    {% if order.deliverer.status == "DelivererStatus.AVAILABLE" %}
-        {% if order.status == "Status.PENDING_DELIVERY"  %}
+{% if accepted is True %}
+    {% for order in orders %}
+        {% if order.deliverer.status == "Available" %}
+            {% if order.status == "Waiting for deliverer"  %}
+            <div class="container mx-auto text-center mt-3">
+            <div class="container mt-3 bg-light d-inline-flex text-center" style="height: 120px; border-radius: 10px;">
+                <div class="p-2" style="margin-top: 12px; font-size: 24px;">
+                    {{order.price}}
+                </div>
+                <div class="p-2" style="margin-top: 20px;">
+                    {{order.restaurant.restaurant_name}}
+                </div>
+                <div class="ml-auto p-2">
+                    <form class="p-2" action = "{% url 'acceptOrderD' %}" method ="POST">
+                        {% csrf_token %}
+                        <input type  = "hidden" name = "order_id" value = {{order.id}}>
+                        <input type = "submit" class = "btn" value = "Accept Order">
+                    </form>
+                    <form class="p-2" action = "{% url 'declineOrderD' %}" method ="POST">
+                        {% csrf_token %}
+                        <input type  = "hidden" name = "order_id" value = {{order.id}}>
+                        <input type = "submit" class = "btn" value = "Decline Order">
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% endif %}
+        {% if order.status == "In progress" %}
         <div class="container mx-auto text-center mt-3">
         <div class="container mt-3 bg-light d-inline-flex text-center" style="height: 120px; border-radius: 10px;">
             <div class="p-2" style="margin-top: 12px; font-size: 24px;">
@@ -13,41 +39,21 @@
                 {{order.restaurant.restaurant_name}}
             </div>
             <div class="ml-auto p-2">
-                <form class="p-2" action = "{% url 'acceptOrderD' %}" method ="POST">
+                <form action = "{% url 'completeOrder' %}" method ="POST">
                     {% csrf_token %}
                     <input type  = "hidden" name = "order_id" value = {{order.id}}>
-                    <input type = "submit" class = "btn" value = "Accept Order">
-                </form>
-                <form class="p-2" action = "{% url 'declineOrderD' %}" method ="POST">
-                    {% csrf_token %}
-                    <input type  = "hidden" name = "order_id" value = {{order.id}}>
-                    <input type = "submit" class = "btn" value = "Decline Order">
+                    <input type = "submit" class = "btn" value = "Complete Order">
                 </form>
             </div>
         </div>
     </div>
-    {% endif %}
-    {% endif %}
-    {% if order.status == "Status.INPROGRESS" %}
-    <div class="container mx-auto text-center mt-3">
-    <div class="container mt-3 bg-light d-inline-flex text-center" style="height: 120px; border-radius: 10px;">
-        <div class="p-2" style="margin-top: 12px; font-size: 24px;">
-            {{order.price}}
-        </div>
-        <div class="p-2" style="margin-top: 20px;">
-            {{order.restaurant.restaurant_name}}
-        </div>
-        <div class="ml-auto p-2">
-            <form action = "{% url 'completeOrder' %}" method ="POST">
-                {% csrf_token %}
-                <input type  = "hidden" name = "order_id" value = {{order.id}}>
-                <input type = "submit" class = "btn" value = "Complete Order">
-            </form>
-        </div>
-    </div>
-</div>
-    {% endif %}
+        {% endif %}
+        
 
-{% endfor %}    
+    {% endfor %}    
+{% else %}
+<p>Please fill your information</p> <!-- do zrobienia zeby ladnie bylo -->
+
+{% endif %}
 
 {% endblock content %}  

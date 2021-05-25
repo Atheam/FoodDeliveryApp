@@ -11,7 +11,7 @@ import json
 
 def place_order(request):
     cart = request.session.get('cart',{})
-    customer = Customers.objects.filter(user = request.user)
+    customer = Customers.objects.filter(user = request.user).first()
     restaurant_id = cart.get("restaurant_id",-1)
     restaurant = Restaurants.objects.get(id = restaurant_id)
     now = datetime.datetime.now()
@@ -25,16 +25,15 @@ def place_order(request):
             orderDetail = OrderDetails(dish = dish,order = order,quantity = value)
             orderDetail.save()
             price+= dish.price * value
-
     order.price = price
     order.save()
     cart.clear()
-    request.session['cart'] = cart 
+    request.session['cart'] = cart
     return redirect("yourOrder")
 
 def your_order(request):
-        customer = Customers.objects.get(user = request.user) 
-        orders = Order.objects.filter(customer= customer)
+        customer = Customers.objects.get(user = request.user)
+        orders = Order.objects.filter(customer= customer)[::-1]
         args = {"orders":orders}
         return render(request,"OrderExecution/yourOrder.html",args)
 
@@ -55,9 +54,9 @@ def find_deliverer(order,excluded = None):
                                 closest_deliverer = deliverer
         return closest_deliverer
 
-
-def check_expiration(order):
-        time.sleep(120)
+def check_expiration(order_id):
+        time.sleep(20)
+        order = Order.objects.get(id = order_id)
         if order.status == Status.PENDING_DELIVERY:
                 order.status = Status.DECLINED
                 order.save()
@@ -66,9 +65,9 @@ def accept_order_r(request):
         order_id = request.POST.get("order_id"," ")
         order = Order.objects.get(id = order_id)
         order.deliverer = find_deliverer(order)
-        thread = threading.Thread(target = check_expiration,args=(order,))
-        thread.start()
         order.status = Status.PENDING_DELIVERY
+        thread = threading.Thread(target = check_expiration,args=(order_id,))
+        thread.start()
         order.save()
         return redirect("pendingOrders")
 
@@ -78,15 +77,6 @@ def decline_order_r(request):
         order.status = Status.DECLINED
         order.save()
         return redirect("pendingOrders")
-
-
-def pending_orders(request):
-        restaurant = Restaurants.objects.filter(user = request.user).first()
-        if restaurant:
-                pending_orders = Order.objects.filter(restaurant= restaurant)
-                args = {"orders":pending_orders,"accepted":True}
-        args = {"accepted":False}
-        return render(request,"OrderExecution/pendingOrders.html",args)
 
 def accept_order_d(request):
         order_id = request.POST.get("order_id"," ")
@@ -114,13 +104,25 @@ def decline_order_d(request):
         order.deliverer = find_deliverer(order,excluded =deliverer)
         order.save()
         return redirect("orderDelivery")
-        
+
+
+def pending_orders(request):
+        restaurant = Restaurants.objects.filter(user = request.user).first()
+        if restaurant:
+                pending_orders = Order.objects.filter(restaurant= restaurant)
+                args = {"orders":pending_orders,"accepted":True}
+        else:
+                args = {"accepted":False}
+        return render(request,"OrderExecution/pendingOrders.html",args)
         
         
 def order_delivery(request):
-        deliverer = Deliverers.objects.get(user = request.user)
-        pending_orders = Order.objects.filter(deliverer = deliverer)
-        args = {"orders":pending_orders}
+        deliverer = Deliverers.objects.filter(user = request.user).first()
+        if deliverer:
+                pending_orders = Order.objects.filter(deliverer = deliverer)
+                args = {"orders":pending_orders,"accepted": True}
+        else:
+                args = {"accepted":False}
         return render(request,"OrderExecution/orderDelivery.html",args)
 
 def complete_order(request):
@@ -141,6 +143,35 @@ def update_location(request):
         deliverer.longitude = longitude
         deliverer.save()
         return HttpResponse(json.dumps({'status': "OK"}), content_type="application/json")    
+
+def rate_restaurant(request):
+        order_id = request.POST.get("order_id"," ")
+        rate = int(request.POST.get("rate", " "))
+        order = Order.objects.get(id = order_id)
+        order.restaurant_rating = rate
+        order.save()
+
+        restaurant = order.restaurant
+        restaurant.rate_count +=1
+        restaurant.rate_sum += rate
+        restaurant.rating =  float(restaurant.rate_sum)/restaurant.rate_count
+        restaurant.save()
+        return redirect("yourOrder")
+
+def rate_deliverer(request):
+        order_id = request.POST.get("order_id"," ")
+        rate = int(request.POST.get("rate", " "))
+        order = Order.objects.get(id = order_id)
+        order.deliverer_rating = rate
+        order.save()
+
+        deliverer = order.deliverer
+        deliverer.rate_count +=1
+        deliverer.rate_sum += rate
+        deliverer.rating =  float(deliverer.rate_sum)/deliverer.rate_count
+        deliverer.save()
+        return redirect("yourOrder")
+
 
 
 
