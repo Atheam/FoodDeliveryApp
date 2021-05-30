@@ -2,17 +2,30 @@
 {% block content %}  
 
 {% if accepted is True %}
+    <div style="height: 20px;"></div>
     {% for order in orders %}
+    {% if order.status == "Waiting for deliverer" %}
         {% if order.deliverer.status == "Available" %}
-            {% if order.status == "Waiting for deliverer"  %}
-            <div class="container mx-auto text-center mt-3">
-            <div class="container mt-3 bg-light d-inline-flex text-center" style="height: 120px; border-radius: 10px;">
+        <div class ="container mt-1 text-center">Delivery address:{{order.customer.address.city}} 
+                                                                {{order.customer.address.street}}
+                                                                {{order.customer.address.building_number}}/{{order.customer.address.flat_number}}
+        </div>
+        <div class="container mb-5 text-center">
+            <div class="container mt-1 bg-light d-inline-flex text-center" style="height: 120px; border-radius: 10px;">
                 <div class="p-2" style="margin-top: 35px; font-size: 24px;">
-                    {{order.price}}
+                    {{order.price}} USD
                 </div>
-                <div class="p-2" style="margin-top: 42px;">
+                <div class="p-2" style="margin-top: 34px;font-size: 24px;">
                     {{order.restaurant.restaurant_name}}
                 </div>
+                {% for detail in details%}
+                {% if detail.order == order %}
+                <div class="p-2" style="margin-top: 38px; font-size: 20px;">
+                    {{detail.dish.name}} x{{detail.quantity}}
+                </div>
+                {% endif %}
+            {% endfor %}
+                
                 <div class="ml-auto p-2">
                     <form class="p-2" action = "{% url 'acceptOrderD' %}" method ="POST">
                         {% csrf_token %}
@@ -29,6 +42,7 @@
         </div>
         {% endif %}
         {% endif %}
+        
         {% if order.status == "In progress" %}
         <div class="container mx-auto text-center mt-3">
         <div class="container mt-3 bg-light d-inline-flex text-center" style="height: 120px; border-radius: 10px;">
@@ -52,7 +66,19 @@
 
     {% endfor %}    
 {% else %}
-<p>Please fill your information</p> <!-- do zrobienia zeby ladnie bylo -->
+<div class="container mx-auto text-center mt-5">
+    <div class="container mt-4 bg-light text-center" style="height: 150px; border-radius: 10px;">
+        <div class="container mx-auto text-center mt-5">
+            <span class="h4">This site is not avaible for you!</span>
+        </div>
+        <div class="container mx-auto text-center mt-4">
+            <span class="h4">Please fill your restaurant information.</span>
+        </div>
+        <div class="container mx-auto text-center mt-4">
+            <span class="h4">If you have already done this, please wait for acceptance.</span>
+        </div>
+    </div>
+</div>
 
 {% endif %}
 

@@ -40,8 +40,6 @@ def your_order(request):
 def find_deliverer(order,excluded = None):
         def dist(r_lat, r_lng, d_lat, d_lng):
                 return geopy.distance.geodesic((r_lat,r_lng), (d_lat,d_lng))
-
-
         restaurant = order.restaurant
         restaurant_latitude = restaurant.latitude
         restaurant_longitude = restaurant.longitude
@@ -55,10 +53,11 @@ def find_deliverer(order,excluded = None):
         return closest_deliverer
 
 def check_expiration(order_id):
-        time.sleep(20)
+        time.sleep(120)
         order = Order.objects.get(id = order_id)
         if order.status == Status.PENDING_DELIVERY:
                 order.status = Status.DECLINED
+                order.deliverer.status = DelivererStatus.AVAILABLE
                 order.save()
 
 def accept_order_r(request):
@@ -87,12 +86,11 @@ def accept_order_d(request):
         deliverer.status = DelivererStatus.BUSY
         deliverer.save()
 
-        to_change = Order.objects.filter(deliverer = deliverer)
+        to_change = Order.objects.filter(deliverer = deliverer,status=Status.PENDING_DELIVERY)
 
         for order_to_change in to_change:
             if order_to_change != order:
                 order_to_change.deliverer = find_deliverer(order)
-                order_to_change.status = Status.PENDING_DELIVERY
                 order_to_change.save()
 
         return redirect("orderDelivery")
@@ -109,8 +107,9 @@ def decline_order_d(request):
 def pending_orders(request):
         restaurant = Restaurants.objects.filter(user = request.user).first()
         if restaurant:
-                pending_orders = Order.objects.filter(restaurant= restaurant)
-                args = {"orders":pending_orders,"accepted":True}
+                pending_orders = Order.objects.filter(restaurant= restaurant,status = Status.PENDING_RESTAURANT)
+                order_details = OrderDetails.objects.filter(order__in = pending_orders)
+                args = {"orders":pending_orders,"details":order_details,"accepted":True}
         else:
                 args = {"accepted":False}
         return render(request,"OrderExecution/pendingOrders.html",args)
@@ -119,8 +118,9 @@ def pending_orders(request):
 def order_delivery(request):
         deliverer = Deliverers.objects.filter(user = request.user).first()
         if deliverer:
-                pending_orders = Order.objects.filter(deliverer = deliverer)
-                args = {"orders":pending_orders,"accepted": True}
+                pending_orders = Order.objects.filter(deliverer= deliverer)
+                order_details = OrderDetails.objects.filter(order__in = pending_orders)
+                args = {"orders":pending_orders,"details":order_details,"accepted": True}
         else:
                 args = {"accepted":False}
         return render(request,"OrderExecution/orderDelivery.html",args)

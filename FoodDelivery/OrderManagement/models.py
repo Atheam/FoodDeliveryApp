@@ -10,7 +10,6 @@ class Menu(models.Model):
 class Dish(models.Model):
     name = models.CharField(max_length=50)
     price = models.FloatField()
-    image = models.ImageField(upload_to = 'uploads')
     description = models.CharField(max_length = 500)
     image = models.ImageField(upload_to='images/')
 

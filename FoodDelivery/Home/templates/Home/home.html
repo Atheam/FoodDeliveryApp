@@ -5,16 +5,28 @@
 {% extends "Home/base.html" %}
 
 {% block content %}
+<head>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Mukta&display=swap" rel="stylesheet">
+</head>
 <body class = "home-body">
 
 <div class="container">
     <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-8 col-centered">
             <div class="maintxt">
-                <span  id ="homeText" class="overlay-text">Welcome to FoodDelivery app</span>
+                <span  id ="homeText" class="overlay-text" style = "font-family: 'Mukta',sans-serif;">Welcome to FoodDeliveryApp</span>
             </div>
         </div>
+        
+        
     </div>
+    <div class="col-xs-12 col-sm-6 col-md-8 col-centered">
+        <div class ="home-btn">
+            <a href="{% url 'browseRestaurants' %}" ><input type = "submit" class = "btn btn-primary btn-lg" value = "Browse restaurants"></a>
+        </div>
+    </div>
+    
 </div>
 
 </body>

@@ -4,16 +4,24 @@
 
 {% if accepted is True %}
 <div class="container mx-auto text-center mt-3">
-    {% for order in orders %}
     
-    {% if order.status == "Waiting for restaurant" %}
-        <div class="container mt-3 bg-light d-inline-flex text-center" style="height: 120px; border-radius: 10px;">
+    {% for order in orders %}
+    <div class ="container mt-1 text-left">Delivery address: {{order.customer.address.city}} 
+                                       {{order.customer.address.street}}
+                                       {{order.customer.address.building_number}}/{{order.customer.address.flat_number}}
+    </div>
+         
+        <div class="container mt-1 bg-light d-inline-flex text-center" style="height: 120px; border-radius: 10px;">
             <div class="p-2" style="margin-top: 35px; font-size: 24px;">
-                {{order.price}}
+                {{order.price}} USD
             </div>
-            <div class="p-2" style="margin-top: 42px;">
-                {{order.restaurant.restaurant_name}}
-            </div>
+            {% for detail in details%}
+                {% if detail.order == order %}
+                <div class="p-2" style="margin-top: 35px; font-size: 24px;">
+                    {{detail.dish.name}} x{{detail.quantity}}
+                </div>
+                {% endif %}
+            {% endfor %}
             <div class="ml-auto p-2">
                 <form class="p-2" action = "{% url 'acceptOrderR' %}" method ="POST">
                     {% csrf_token %}
@@ -26,8 +34,8 @@
                     <input type = "submit" class = "btn" value = "Decline Order">
                 </form>
             </div>
+            
         </div>
-    {% endif %}
 {% endfor %} 
 </div>
 {% else %}

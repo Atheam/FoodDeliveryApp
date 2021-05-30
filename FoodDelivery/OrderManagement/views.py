@@ -71,10 +71,12 @@ def add_to_cart(request):
 
 def cart_info(request):
     customer = Customers.objects.filter(user = request.user).first()
+    
     if not customer:
         args ={"accepted":False}
     else:
         cart = request.session.get('cart',{})
+        total = 0
         items = []
         for key,value in cart.items():
             print(key,value)
@@ -82,11 +84,12 @@ def cart_info(request):
                 restaurant_id = value
             else:
                 dish = Dish.objects.get(id = key)
+                total+=dish.price*value
                 items.append((dish,value))
 
         if items:
             restaurant = Restaurants.objects.get(id = restaurant_id)
-            args = {"restaurant":restaurant,"items":items,"empty":False,"accepted":True}
+            args = {"restaurant":restaurant,"items":items,"total":round(total,2),"empty":False,"accepted":True}
         else:
             args = {"empty":True,"accepted":True}
 

@@ -16,13 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path,include
+import Home
 from Users import views as Users_views
 from Home import views as Home_views
 from OrderManagement import views as OrderManagement_views
 from OrderExecution import views as OrderExecution_views
+from django.conf import settings
+from django.conf.urls.static import static
+from Home import views as Home_views
 
 urlpatterns = [
     path('home/', include('Home.urls')),
+    path('', Home_views.home, name='home'),
     path('users/',include('Users.urls')),
     path('orderManagement/',include('OrderManagement.urls')),
     path('orderExecution/',include("OrderExecution.urls")),
@@ -30,3 +35,7 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='Users/login.html', redirect_authenticated_user=True), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='Users/logout.html'), name='logout'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
