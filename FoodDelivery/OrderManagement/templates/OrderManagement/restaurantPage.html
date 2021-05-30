@@ -18,14 +18,17 @@
 <div class="container mx-auto text-center mt-3">
     <h1 class="container bg-secondary w-50 rounded">MENU <i class="fas fa-utensils"></i></h1>
     {% for detail in details %}
-    <div class="container mt-3 bg-light d-inline-flex text-center" style="height: 80px; border-radius: 10px;">
-        <div class="p-2" style="margin-top: 12px; font-size: 24px;">
+    <div class="container mt-3 bg-light d-inline-flex text-center" style="height: 120px; border-radius: 10px;">
+        <div class="p-2"">
+            <img src="../../../media/{{ detail.dish.image }}" style="width: 100px; height: 100px; border-radius: 10px;">
+        </div>
+        <div class="p-2" style="margin-top: 30px; font-size: 24px;">
             {{ detail.dish.name }}
         </div>
-        <div class="p-2" style="margin-top: 20px;">
+        <div class="p-2" style="margin-top: 38px;">
             {{ detail.dish.price }} USD
         </div>
-        <div class="p-2" style="margin-top: 19px;">
+        <div class="p-2" style="margin-top: 37px;">
             {{ detail.dish.description }}
         </div>
         <div class="ml-auto p-2">
@@ -33,7 +36,7 @@
                 {% csrf_token %}
                 <input type  = "hidden" name = "restaurant_id" value = {{restaurant.id}}>
                 <input type  = "hidden" name = "dish_id" value = {{detail.dish.id}}>
-                <input class="btn btn-outline-primary" type = "submit" class = "btn" value = "Add to cart">
+                <input class="btn btn-outline-primary" type = "submit" class = "btn" value = "Add to cart" style="margin-top: 16px;">
             </form>
         </div>
     </div>

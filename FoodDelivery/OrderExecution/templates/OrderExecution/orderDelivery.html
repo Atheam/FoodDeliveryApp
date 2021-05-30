@@ -7,10 +7,10 @@
             {% if order.status == "Waiting for deliverer"  %}
             <div class="container mx-auto text-center mt-3">
             <div class="container mt-3 bg-light d-inline-flex text-center" style="height: 120px; border-radius: 10px;">
-                <div class="p-2" style="margin-top: 12px; font-size: 24px;">
+                <div class="p-2" style="margin-top: 35px; font-size: 24px;">
                     {{order.price}}
                 </div>
-                <div class="p-2" style="margin-top: 20px;">
+                <div class="p-2" style="margin-top: 42px;">
                     {{order.restaurant.restaurant_name}}
                 </div>
                 <div class="ml-auto p-2">
@@ -32,17 +32,17 @@
         {% if order.status == "In progress" %}
         <div class="container mx-auto text-center mt-3">
         <div class="container mt-3 bg-light d-inline-flex text-center" style="height: 120px; border-radius: 10px;">
-            <div class="p-2" style="margin-top: 12px; font-size: 24px;">
+            <div class="p-2" style="margin-top: 35px; font-size: 24px;">
                 {{order.price}}
             </div>
-            <div class="p-2" style="margin-top: 20px;">
+            <div class="p-2" style="margin-top: 42px;">
                 {{order.restaurant.restaurant_name}}
             </div>
             <div class="ml-auto p-2">
                 <form action = "{% url 'completeOrder' %}" method ="POST">
                     {% csrf_token %}
                     <input type  = "hidden" name = "order_id" value = {{order.id}}>
-                    <input type = "submit" class = "btn" value = "Complete Order">
+                    <input type = "submit" class = "btn" value = "Complete Order" style="margin-top: 30px;">
                 </form>
             </div>
         </div>

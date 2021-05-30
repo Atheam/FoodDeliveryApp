@@ -4,15 +4,14 @@
 
 {% if accepted is True %}
 <div class="container mx-auto text-center mt-3">
-    <h1 class="container bg-secondary w-50 rounded">MENU <i class="fas fa-utensils"></i></h1>
     {% for order in orders %}
     
     {% if order.status == "Waiting for restaurant" %}
         <div class="container mt-3 bg-light d-inline-flex text-center" style="height: 120px; border-radius: 10px;">
-            <div class="p-2" style="margin-top: 12px; font-size: 24px;">
+            <div class="p-2" style="margin-top: 35px; font-size: 24px;">
                 {{order.price}}
             </div>
-            <div class="p-2" style="margin-top: 20px;">
+            <div class="p-2" style="margin-top: 42px;">
                 {{order.restaurant.restaurant_name}}
             </div>
             <div class="ml-auto p-2">
@@ -32,7 +31,19 @@
 {% endfor %} 
 </div>
 {% else %}
-<p>Please fill your information and wait for acceptance</p> <!-- do zrobienia zeby ladnie bylo -->
+<div class="container mx-auto text-center mt-5">
+    <div class="container mt-4 bg-light text-center" style="height: 150px; border-radius: 10px;">
+        <div class="container mx-auto text-center mt-5">
+            <span class="h4">This site is not avaible for you!</span>
+        </div>
+        <div class="container mx-auto text-center mt-4">
+            <span class="h4">Please fill your restaurant information.</span>
+        </div>
+        <div class="container mx-auto text-center mt-4">
+            <span class="h4">If you have already done this, please wait for acceptance.</span>
+        </div>
+    </div>
+</div>
 
 {% endif %}
 

@@ -17,12 +17,13 @@ def manage_menu(request):
 
 def add_dish(request):
     if request.method == "POST":
-        form = AddDishForm(request.POST)
+        form = AddDishForm(request.POST, request.FILES)
         if form.is_valid():
             name = form.cleaned_data['name']
             price = form.cleaned_data['price']
             description = form.cleaned_data['description']
-            dish = Dish(name = name,price= price,description=description)
+            image = form.cleaned_data['image']
+            dish = Dish(name = name,price= price,description=description, image=image)
             dish.save()
             restaurant = Restaurants.objects.filter(user = request.user)[0]
             menu = Menu.objects.filter(restaurant = restaurant)[0]

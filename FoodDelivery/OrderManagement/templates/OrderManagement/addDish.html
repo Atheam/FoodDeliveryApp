@@ -7,7 +7,7 @@
     <div class="card mt-5 mx-auto text-center">
         <div class="card-body">
             <h1>Add dish to your menu</h1> 
-<form method ="POST">
+<form method ="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{form|crispy}}
     <button type= "submit" class="btn btn-outline-secondary">Submit</button>

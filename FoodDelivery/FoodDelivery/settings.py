@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'OrderManagement.apps.OrdermanagementConfig',
     'OrderExecution.apps.OrderexecutionConfig',
     'crispy_forms',
+    'star_ratings'
 ]
 
 MIDDLEWARE = [
@@ -134,6 +135,10 @@ LOGIN_URL = 'login'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 API_KEY = 'slAQoOZkcAnGAlvEwWGY78cQlez7y7uB'
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 
 

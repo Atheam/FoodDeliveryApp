@@ -5,7 +5,7 @@
 
 {% for restaurant in restaurants %}
 
-<div class="container mt-3 bg-light text-center" style="height: 200px; border-radius: 10px;">
+<div class="container mt-3 bg-light text-center" style="height: 230px; border-radius: 10px;">
     <div class="p-1" style="margin-top: 12px; font-size: 24px;">
         <span class="h1">{{restaurant.restaurant_name}}
     </div>
@@ -15,7 +15,7 @@
     <div class="" style="margin-top: 15px;">
         Open time: {{restaurant.open_time}}  |  Close time: {{restaurant.close_time}}  |  Phone number: {{restaurant.phone_number}}
     </div>
-    <p>Rating: {{restaurant.rating}} Number of rates: {{restaurant.rate_count}}</p> <!--tutaj jakos wyswietlic gwiazdki i rating obok pewnie-->
+    <p>Rating: {{restaurant.rating}} | Number of rates: {{restaurant.rate_count}}</p> <!--tutaj jakos wyswietlic gwiazdki i rating obok pewnie-->
     {% if "Customers" in user.groups.all.0.name %}
     <div class="" style="margin-top: 12px; font-size: 24px;">
         <a href = "{% url 'restaurantPage' restaurant.id %}" class="btn btn-outline-primary">Order here!</a>

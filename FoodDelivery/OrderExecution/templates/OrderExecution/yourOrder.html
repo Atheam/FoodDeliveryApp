@@ -1,7 +1,7 @@
 {% extends "Home/base.html" %}
 {% block content %}
 
-
+{% load ratings %}
 {% for order in orders %}
 
     
@@ -15,12 +15,14 @@
                 <p class="p-1">Deliverer name: <span style="color: grey;">{{order.deliverer.first_name}}</span></p>
                 {% if order.status == "Completed" %} <!-- jezeli nie jest completed to w ogole oceny sie nie da dac-->
                     {% if order.restaurant_rating == 0 %}
+                    {% ratings object %}
                     <form action = "{% url 'rateRestaurant' %}" method ="POST">
                         {% csrf_token %}
+
+                          <input id="input-id" name="input-name" type="number" class="rating" min=1 max=10 step=2 data-size="lg" data-rtl="true">
                             <input type="radio" name="rate" value="5" />
                             <label>5 stars</label>
-                            <input type="radio" name="rate" value="4" /> <!-- tutaj fajnie jakbys gwiazdki zrobil cos jak tu moze https://codepen.io/neilpomerleau/pen/wzxzQr i jakbys zrobil default na 1 bo 
-                                                                            jak sie nie zrobi to wyjebie-->
+                            <input type="radio" name="rate" value="4" /> 
                             <label>4 stars</label>
                             <input type="radio" name="rate" value="3" />
                             <label>3 stars</label>
@@ -38,17 +40,16 @@
                     {% if order.deliverer_rating == 0 %}
                     <form action = "{% url 'rateDeliverer' %}" method ="POST">
                         {% csrf_token %}
-                            <input type="radio" name="rate" value="5" />
+                            <!-- <input type="radio" name="rate" value="5" />
                             <label>5 stars</label>
-                            <input type="radio" name="rate" value="4" /> <!-- tutaj fajnie jakbys gwiazdki zrobil cos jak tu moze https://codepen.io/neilpomerleau/pen/wzxzQr i jakbys zrobil default na 1 bo 
-                                jak sie nie zrobi to wyjebie -->
+                            <input type="radio" name="rate" value="4" /> 
                             <label>4 stars</label>
                             <input type="radio" name="rate" value="3" />
                             <label>3 stars</label>
                             <input type="radio" name="rate" value="2" />
                             <label>2 stars</label>
                             <input type="radio" name="rate" value="1" />
-                            <label>1 star</label>
+                            <label>1 star</label> -->
                         <input type  = "hidden" name = "order_id" value = {{order.id}}>
                         <input type = "submit" class = "btn" value = "Rate deliverer"> 
                     {% else %}
@@ -68,5 +69,7 @@
 
     
 {% endfor %}   
+
+<div style="height:200px;"></div>
 
 {% endblock content %}
