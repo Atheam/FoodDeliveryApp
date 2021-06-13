@@ -38,12 +38,13 @@ def profile(request):
         return redirect('home')
 
 def change_deliverer_status(request):
-    deliverer = Deliverers.objects.get(user = request.user)
-    if deliverer.status == DelivererStatus.AVAILABLE:
-        deliverer.status = DelivererStatus.NOTAVAILABLE
-    else:
-        deliverer.status = DelivererStatus.AVAILABLE
-    deliverer.save()
+    deliverer = Deliverers.objects.filter(user = request.user).first()
+    if deliverer:
+        if deliverer.status == DelivererStatus.AVAILABLE:
+            deliverer.status = DelivererStatus.NOTAVAILABLE
+        else:
+            deliverer.status = DelivererStatus.AVAILABLE
+        deliverer.save()
     return redirect("profile")
 
 

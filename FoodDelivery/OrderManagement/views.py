@@ -25,8 +25,8 @@ def add_dish(request):
             image = form.cleaned_data['image']
             dish = Dish(name = name,price= price,description=description, image=image)
             dish.save()
-            restaurant = Restaurants.objects.filter(user = request.user)[0]
-            menu = Menu.objects.filter(restaurant = restaurant)[0]
+            restaurant = Restaurants.objects.filter(user = request.user).first()
+            menu = Menu.objects.filter(restaurant = restaurant).first()
             menu_details = MenuDetails(dish = dish,menu = menu)
             menu_details.save()
             return redirect('manageMenu')
@@ -37,8 +37,8 @@ def add_dish(request):
 
 def delete_dish(request):
     dish_id = request.POST.get("dish_id"," ")
-    dish = Dish.objects.get(id = dish_id)
-    details = MenuDetails.objects.get(dish=dish)
+    dish = Dish.objects.fitler(id = dish_id).first()
+    details = MenuDetails.objects.filter(dish=dish).first()
     dish.delete()
     details.delete()
     return redirect('manageMenu')
@@ -50,8 +50,8 @@ def browse_restaurants(request):
     return render(request,'OrderManagement/browseRestaurants.html',args)
 
 def restaurant_page(request,id):
-    restaurant = Restaurants.objects.get(id = id)
-    menu = Menu.objects.filter(restaurant = restaurant)[0]
+    restaurant = Restaurants.objects.filter(id = id).first()
+    menu = Menu.objects.filter(restaurant = restaurant).first()
     details = MenuDetails.objects.filter(menu = menu)
     args = {'restaurant':restaurant,'details':details}
     cart = request.session.get('cart',{})
@@ -64,7 +64,8 @@ def add_to_cart(request):
     if "restaurant_id" in cart:
         if cart["restaurant_id"] != restaurant_id:
             cart = {}
-    cart["restaurant_id"] = restaurant_id
+            cart["restaurant_id"] = restaurant_id
+
     cart[dish_id] = cart.get(dish_id,0) + 1
     request.session['cart'] = cart 
     return redirect("restaurantPage",restaurant_id)
@@ -79,16 +80,15 @@ def cart_info(request):
         total = 0
         items = []
         for key,value in cart.items():
-            print(key,value)
             if key == "restaurant_id":
                 restaurant_id = value
             else:
-                dish = Dish.objects.get(id = key)
+                dish = Dish.objects.filter(id = key).first()
                 total+=dish.price*value
                 items.append((dish,value))
 
         if items:
-            restaurant = Restaurants.objects.get(id = restaurant_id)
+            restaurant = Restaurants.objects.filter(id = restaurant_id).first()
             args = {"restaurant":restaurant,"items":items,"total":round(total,2),"empty":False,"accepted":True}
         else:
             args = {"empty":True,"accepted":True}
