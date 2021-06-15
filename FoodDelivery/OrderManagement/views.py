@@ -64,7 +64,8 @@ def add_to_cart(request):
     if "restaurant_id" in cart:
         if cart["restaurant_id"] != restaurant_id:
             cart = {}
-            cart["restaurant_id"] = restaurant_id
+    cart["restaurant_id"] = restaurant_id
+    
 
     cart[dish_id] = cart.get(dish_id,0) + 1
     request.session['cart'] = cart 
@@ -73,10 +74,12 @@ def add_to_cart(request):
 def cart_info(request):
     customer = Customers.objects.filter(user = request.user).first()
     
+    
     if not customer:
         args ={"accepted":False}
     else:
         cart = request.session.get('cart',{})
+        print(cart)
         total = 0
         items = []
         for key,value in cart.items():
